@@ -1,0 +1,18 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: saleor-dashboard
+spec:
+  template:
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: saleor-dashboard
+        volumeMounts:
+          - mountPath: /etc/nginx/conf.d
+            name: dashboard-nginx-conf
+      volumes:
+        - name: dashboard-nginx-conf
+          configMap:
+            name: dashboard-nginx-conf

@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: saleor
+spec:
+  template:
+    spec:
+      restartPolicy: Always
+      initContainers:
+      - name: saleor-init-a
+      - name: saleor-init-b
+      - name: saleor-init-c
+        image: skymoore/saleor:3.8.4
+        env:
+          - name: RSA_PRIVATE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: saleor-rsa-key
+                key: private.pem
+        envFrom:
+          - configMapRef:
+              name: saleor-env
+          - secretRef:
+              name: saleor-secret
+        command:
+          - "python"
+          - "manage.py"
+          - "collectstatic"
+          - "--noinput"
+        volumeMounts:
+        - mountPath: /app/media
+          name: saleor-media-volume

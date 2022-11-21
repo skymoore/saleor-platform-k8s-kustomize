@@ -1,0 +1,120 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: saleor-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:585441654511:certificate/f36976b5-fbf5-484a-9e50-3611586f8600
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
+    alb.ingress.kubernetes.io/load-balancer-attributes: routing.http2.enabled=true,idle_timeout.timeout_seconds=600
+    alb.ingress.kubernetes.io/target-group-attributes: stickiness.enabled=true,stickiness.lb_cookie.duration_seconds=60
+    alb.ingress.kubernetes.io/backend-protocol: HTTP
+    alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+    alb.ingress.kubernetes.io/group.name: sky-dev-ingress
+    alb.ingress.kubernetes.io/group.order: '15'
+spec:
+  ingressClassName: alb
+  tls:
+    - hosts:
+        - api.slr.rwx.dev
+        - dsh.slr.rwx.dev
+        - store.slr.rwx.dev
+        - co.slr.rwx.dev
+        - mailhog.slr.rwx.dev
+  rules:
+    - host: "api.slr.rwx.dev"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ssl-redirect
+                port:
+                  name: use-annotation
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: saleor
+                port:
+                  name: saleor-api
+    - host: "dsh.slr.rwx.dev"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ssl-redirect
+                port:
+                  name: use-annotation
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: saleor-dashboard
+                port:
+                  name: saleor-dsh
+    - host: "store.slr.rwx.dev"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ssl-redirect
+                port:
+                  name: use-annotation
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: saleor-store
+                port:
+                  name: saleor-str
+    - host: "co.slr.rwx.dev"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ssl-redirect
+                port:
+                  name: use-annotation
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: saleor-store
+                port:
+                  name: saleor-co
+    - host: "mailhog.slr.rwx.dev"
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: ssl-redirect
+              port:
+                name: use-annotation
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: mailhog
+              port:
+                name: mailhog-ui
+    # - host: "smtp.slr.rwx.dev"
+    #   http:
+    #     paths:
+    #     - path: /
+    #       pathType: Prefix
+    #       backend:
+    #         service:
+    #           name: mailhog
+    #           port:
+    #             name: mailhog-smtp
