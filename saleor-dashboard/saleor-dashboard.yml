@@ -12,7 +12,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: saleor-dashboard
-        image: skymoore/saleor-dashboard
+        image: saleor-dashboard-image
         imagePullPolicy: Always
         envFrom:
           - configMapRef:

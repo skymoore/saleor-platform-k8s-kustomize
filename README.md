@@ -1,17 +1,61 @@
 # Saleor Platform Kubernetes Kustomize Deployment Manifests
 
+## **Docker Images**
+> See [slr.rwx.dev kustomization](environments/slr.rwx.dev/kustomization.yml) for example use of images.
+### Build Images
+#### saleor example
+```bash
+# repo setup
+git clone git@github.com:saleor/saleor.git
+cd saleor
+git checkout $DESIRED_RELEASE_TAG
+# build
+docker build . \
+-t $YOUR_DOCKER_USER/saleor-storefront:$DESIRED_RELEASE_TAG
+```
+
+#### saleor-storefront example
+```bash
+# repo setup
+git clone git@github.com:saleor/react-storefront.git
+cd react-storefront
+git checkout $DESIRED_RELEASE_TAG
+# build
+docker build . \
+-f Dockerfile.base \
+-t $YOUR_DOCKER_USER/saleor-storefront:$DESIRED_RELEASE_TAG \
+--build-arg SALEOR_API_URL=https://api.slr.rwx.dev/graphql/ \
+--build-arg STOREFRONT_URL=https://store.slr.rwx.dev \
+--build-arg CHECKOUT_APP_URL=https://co.slr.rwx.dev \
+--build-arg CHECKOUT_STOREFRONT_URL=https://co.slr.rwx.dev/checkout-spa/ \
+--build-arg CLOUD_DEPLOYMENT_URL=
+```
+#### saleor-dashboard example
+```bash
+# repo setup
+git clone git@github.com:saleor/saleor-dashboard.git
+cd saleor-dashboard
+git checkout $DESIRED_RELEASE_TAG
+# build
+docker build . \
+-f Dockerfile \
+-t $YOUR_DOCKER_USER/saleor-dashboard:$DESIRED_RELEASE_TAG \
+--build-arg API_URI=https://api.slr.rwx.dev/graphql/ \
+--build-arg APP_MOUNT_URI=/ \
+--build-arg STATIC_URL=/static/ \
+--build-arg MARKETPLACE_URL=https://apps.saleor.io/ \
+--build-arg SALEOR_APPS_ENDPOINT=https://apps.saleor.io/api/saleor-apps \
+--build-arg IS_CLOUD_INSTANCE=false
+```
+
+## **Kubernetes Manifests**
+> See [Makefile](Makefile) for full commands.
 ### Create Manifest
 #### make:
 ```bash
 # build yaml manifest
 make build
 ```
-#### commands:
-```bash
-# build yaml manifest
-kustomize build .
-```
-
 ### Deploy Manifest
 #### make:
 ```bash
@@ -20,28 +64,16 @@ make dry-apply
 # deploy
 make apply
 ```
-#### commands:
+### Diff Manifest
+#### make:
 ```bash
-# preview
-kustomize build . | kubectl apply -f - --dry-run=client
-# deploy
-kustomize build . | kubectl apply -f -
+make diff
 ```
-
 ### Create SuperUser
 #### make:
 ```bash
 make superuser
 ```
-#### commands:
-```bash
-# wait for migrations to complete and web interface to be responsive
-# get pod
-kubectl get pods -n saleor
-# find pod name for saleor-api pod
-kubectl exec -i -t $SALEOR_API_POD_NAME -c saleor-api -n saleor -- python manage.py createsuperuser
-```
-
 ### Delete Resources
 #### make:
 ```bash
@@ -49,11 +81,4 @@ kubectl exec -i -t $SALEOR_API_POD_NAME -c saleor-api -n saleor -- python manage
 make dry-delete
 # delete
 make delete
-```
-#### commands:
-```bash
-# preview
-kustomize build . | kubectl delete -f - --dry-run=client
-# delete
-kustomize build . | kubectl delete -f -
 ```

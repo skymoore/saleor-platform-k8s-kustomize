@@ -9,7 +9,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: saleor-checkout
-        image: skymoore/saleor-storefront
+        image: saleor-storefront-image
         imagePullPolicy: Always
         command:
           - pnpm

@@ -8,10 +8,14 @@ commonLabels:
   app: saleor-platform
 
 images:
-  - name: skymoore/saleor-dashboard
-    newTag: 3.8.4-testing
-  - name: skymoore/saleor
+  - name: saleor-image
+    newName: skymoore/saleor
     newTag: "3.8.4"
+  - name: saleor-dashboard-image
+    newName: skymoore/saleor-dashboard
+    newTag: "3.8.4"
+  - name: saleor-storefront-image
+    newName: skymoore/saleor-storefront
 
 resources:
   - ../../base

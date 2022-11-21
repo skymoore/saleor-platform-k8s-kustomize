@@ -11,7 +11,7 @@ spec:
       - name: saleor-init-a
       - name: saleor-init-b
       - name: saleor-init-c
-        image: skymoore/saleor
+        image: saleor-image
         env:
           - name: RSA_PRIVATE_KEY
             valueFrom:
