@@ -27,6 +27,10 @@ configMapGenerator:
     envs:
       - config/backend.env
       - config/common.env
+  - name: saleor-dashboard-env
+    behavior: replace
+    envs:
+      - config/dashboard.env
 
 secretGenerator:
   - name: saleor-rsa-key
