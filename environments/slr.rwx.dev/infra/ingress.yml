@@ -19,9 +19,9 @@ spec:
     - hosts:
         - api.slr.rwx.dev
         - dsh.slr.rwx.dev
-        - store.slr.rwx.dev
         - co.slr.rwx.dev
-        - mailhog.slr.rwx.dev
+        - store.slr.rwx.dev
+        # - mailhog.slr.rwx.dev
   rules:
     - host: "api.slr.rwx.dev"
       http:
@@ -57,23 +57,6 @@ spec:
                 name: saleor-dashboard
                 port:
                   name: saleor-dsh
-    - host: "store.slr.rwx.dev"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: ssl-redirect
-                port:
-                  name: use-annotation
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: saleor-store
-                port:
-                  name: saleor-str
     - host: "co.slr.rwx.dev"
       http:
         paths:
@@ -91,23 +74,40 @@ spec:
                 name: saleor-store
                 port:
                   name: saleor-co
-    - host: "mailhog.slr.rwx.dev"
+    - host: "store.slr.rwx.dev"
       http:
         paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: ssl-redirect
-              port:
-                name: use-annotation
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: mailhog
-              port:
-                name: mailhog-ui
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ssl-redirect
+                port:
+                  name: use-annotation
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: saleor-store
+                port:
+                  name: saleor-str
+    # - host: "mailhog.slr.rwx.dev"
+    #   http:
+    #     paths:
+    #     - path: /
+    #       pathType: Prefix
+    #       backend:
+    #         service:
+    #           name: ssl-redirect
+    #           port:
+    #             name: use-annotation
+    #     - path: /
+    #       pathType: Prefix
+    #       backend:
+    #         service:
+    #           name: mailhog
+    #           port:
+    #             name: mailhog-ui
     # - host: "smtp.slr.rwx.dev"
     #   http:
     #     paths:
