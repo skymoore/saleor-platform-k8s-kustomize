@@ -18,10 +18,12 @@ spec:
   tls:
     - hosts:
         - api.slr.rwx.dev
+        - cdn.slr.rwx.dev
         - dsh.slr.rwx.dev
         - co.slr.rwx.dev
         - store.slr.rwx.dev
         # - mailhog.slr.rwx.dev
+        # - smtp.slr.rwx.dev
   rules:
     - host: "api.slr.rwx.dev"
       http:
@@ -40,6 +42,23 @@ spec:
                 name: saleor
                 port:
                   name: saleor-api
+    - host: "cdn.slr.rwx.dev"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ssl-redirect
+                port:
+                  name: use-annotation
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx
+                port:
+                  name: nginx
     - host: "dsh.slr.rwx.dev"
       http:
         paths:
