@@ -27,7 +27,6 @@ resources:
 
 patchesStrategicMerge:
   - infra/storage-class-gp3.yml
-  - saleor/saleor-api.yml
   - saleor-dashboard/saleor-dashboard.yml
 
 configMapGenerator:

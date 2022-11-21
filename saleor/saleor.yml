@@ -8,7 +8,7 @@ spec:
     spec:
       restartPolicy: Always
       initContainers:
-      - name: saleor-init-a
+      - name: saleor-init-migrations
         image: saleor-image
         env:
           - name: RSA_PRIVATE_KEY
@@ -28,7 +28,7 @@ spec:
         volumeMounts:
         - mountPath: /app/media
           name: saleor-media-volume
-      - name: saleor-init-b
+      - name: saleor-init-migrate
         image: saleor-image
         env:
           - name: RSA_PRIVATE_KEY
@@ -45,6 +45,27 @@ spec:
           - "python"
           - "manage.py"
           - "migrate"
+        volumeMounts:
+        - mountPath: /app/media
+          name: saleor-media-volume
+      - name: saleor-init-collectstatic
+        image: saleor-image
+        env:
+          - name: RSA_PRIVATE_KEY
+            valueFrom:
+              secretKeyRef:
+                name: saleor-rsa-key
+                key: private.pem
+        envFrom:
+          - configMapRef:
+              name: saleor-env
+          - secretRef:
+              name: saleor-secret
+        command:
+          - "python"
+          - "manage.py"
+          - "collectstatic"
+          - "--noinput"
         volumeMounts:
         - mountPath: /app/media
           name: saleor-media-volume
