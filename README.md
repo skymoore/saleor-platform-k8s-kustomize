@@ -11,7 +11,7 @@ cd saleor
 git checkout $DESIRED_RELEASE_TAG
 # build
 docker build . \
--t $YOUR_DOCKER_USER/saleor-storefront:$DESIRED_RELEASE_TAG
+-t $YOUR_DOCKER_USER/saleor:$DESIRED_RELEASE_TAG
 ```
 
 #### saleor-storefront example
