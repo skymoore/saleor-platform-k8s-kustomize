@@ -42,7 +42,7 @@ docker build . \
 -t $YOUR_DOCKER_USER/saleor-dashboard:$DESIRED_RELEASE_TAG \
 --build-arg API_URI=https://api.slr.rwx.dev/graphql/ \
 --build-arg APP_MOUNT_URI=/ \
---build-arg STATIC_URL=/static/ \
+--build-arg STATIC_URL=/ \
 --build-arg MARKETPLACE_URL=https://apps.saleor.io/ \
 --build-arg SALEOR_APPS_ENDPOINT=https://apps.saleor.io/api/saleor-apps \
 --build-arg IS_CLOUD_INSTANCE=false

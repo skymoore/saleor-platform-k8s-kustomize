@@ -1,0 +1,47 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-ro-user
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    spec:
+      restartPolicy: Never
+      initContainers:
+        - name: db-wait
+          image: postgres:13-alpine
+          env:
+            - name: PGHOST
+              value: db
+          envFrom:
+            - secretRef:
+                name: db-secret
+          command: ["sh", "-c"]
+          args:
+            - | 
+              until pg_isready; do
+                echo "waiting for db"
+                sleep 1
+              done
+      containers:
+        - name: db-ro-user
+          image: postgres:13-alpine
+          envFrom:
+            - secretRef:
+                name: db-secret
+          command: ["sh", "-c"]
+          args:
+            - |
+              psql \
+              -v POSTGRES_DB=$POSTGRES_DB \
+              -v SALEOR_RO_PASSWORD=$SALEOR_RO_PASSWORD \
+              -f /docker-entrypoint-initdb.d/replica_user.sql \
+              postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@db:5432/$POSTGRES_DB
+          volumeMounts:
+            - name: replica-user-volume
+              mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: replica-user-volume
+          configMap:
+            name: db-replica-user

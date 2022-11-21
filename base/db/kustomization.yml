@@ -9,4 +9,5 @@ resources:
   - ./config
   - db-volume.yml
   - db-deployment.yml
+  - db-ro-user-job.yml
   - db-svc.yml
