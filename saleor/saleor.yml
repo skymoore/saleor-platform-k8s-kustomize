@@ -9,7 +9,7 @@ spec:
       restartPolicy: Always
       initContainers:
       - name: saleor-init-a
-        image: skymoore/saleor:3.8.4
+        image: skymoore/saleor
         env:
           - name: RSA_PRIVATE_KEY
             valueFrom:
@@ -29,7 +29,7 @@ spec:
         - mountPath: /app/media
           name: saleor-media-volume
       - name: saleor-init-b
-        image: skymoore/saleor:3.8.4
+        image: skymoore/saleor
         env:
           - name: RSA_PRIVATE_KEY
             valueFrom:
@@ -50,7 +50,7 @@ spec:
           name: saleor-media-volume
       containers:
       - name: saleor-api
-        image: skymoore/saleor:3.8.4
+        image: skymoore/saleor
         imagePullPolicy: Always
         resources:
           requests:

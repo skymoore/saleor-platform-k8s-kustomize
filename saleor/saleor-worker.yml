@@ -9,7 +9,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: saleor-worker
-        image: skymoore/saleor:3.8.4
+        image: skymoore/saleor
         imagePullPolicy: Always
         command:
           - celery
