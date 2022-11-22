@@ -22,7 +22,7 @@ resources:
   - ../../base
   - ../../saleor
   - ../../saleor-dashboard
-  - ../../saleor-storefront
+  # - ../../saleor-storefront
   - ./nginx
   - ./saleor-dashboard
   - ./saleor

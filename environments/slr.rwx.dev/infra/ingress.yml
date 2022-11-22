@@ -21,7 +21,7 @@ spec:
         - cdn.slr.rwx.dev
         - dsh.slr.rwx.dev
         - co.slr.rwx.dev
-        - store.slr.rwx.dev
+        # - store.slr.rwx.dev
         # - mailhog.slr.rwx.dev
         # - smtp.slr.rwx.dev
   rules:
@@ -93,23 +93,23 @@ spec:
                 name: saleor-store
                 port:
                   name: saleor-co
-    - host: "store.slr.rwx.dev"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: ssl-redirect
-                port:
-                  name: use-annotation
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: saleor-store
-                port:
-                  name: saleor-str
+    # - host: "store.slr.rwx.dev"
+    #   http:
+    #     paths:
+    #       - path: /
+    #         pathType: Prefix
+    #         backend:
+    #           service:
+    #             name: ssl-redirect
+    #             port:
+    #               name: use-annotation
+    #       - path: /
+    #         pathType: Prefix
+    #         backend:
+    #           service:
+    #             name: saleor-store
+    #             port:
+    #               name: saleor-str
     # - host: "mailhog.slr.rwx.dev"
     #   http:
     #     paths:
