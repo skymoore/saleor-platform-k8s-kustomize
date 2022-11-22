@@ -9,3 +9,8 @@ configMapGenerator:
   - name: nginx-conf
     files:
       - nginx.conf
+
+secretGenerator:
+  - name: nginx-htpasswd
+    files:
+      - .htpasswd

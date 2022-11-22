@@ -23,14 +23,11 @@ resources:
   - ../../saleor
   - ../../saleor-dashboard
   # - ../../saleor-storefront
-  - ./nginx
   - ./saleor-dashboard
-  - ./saleor
   - infra/ingress.yml
 
 patchesStrategicMerge:
   - infra/storage-class-gp3.yml
-  - saleor/saleor.yml
   - saleor-dashboard/saleor-dashboard.yml
 
 configMapGenerator:
@@ -57,3 +54,7 @@ secretGenerator:
     behavior: replace
     envs:
       - config/db.env
+  - name: nginx-htpasswd
+    behavior: replace
+    files:
+      - config/.htpasswd

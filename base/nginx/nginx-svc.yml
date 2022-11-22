@@ -1,0 +1,19 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name:  nginx
+spec:
+  selector:
+    app:  nginx
+  type:  NodePort
+  ports:
+  - name:  cdn
+    port:  80
+    targetPort: cdn
+  - name: jaeger
+    port: 8080
+    targetPort: jaeger
+  - name: mailhog
+    port: 9090
+    targetPort: mailhog

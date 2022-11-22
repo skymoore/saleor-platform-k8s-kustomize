@@ -35,7 +35,11 @@ spec:
           timeoutSeconds: 10
         ports:
           - containerPort:  80
-            name:  nginx
+            name:  cdn
+          - containerPort: 8080
+            name: jaeger
+          - containerPort: 9090
+            name: mailhog
         volumeMounts:
           - mountPath: /var/www/files/media
             name: saleor-media-volume
@@ -43,6 +47,8 @@ spec:
             name: saleor-static-volume
           - mountPath: /etc/nginx
             name: nginx-conf
+          - mountPath: /etc/apache2
+            name: nginx-htpasswd
       volumes:
         - name: saleor-media-volume
           persistentVolumeClaim:
@@ -53,3 +59,6 @@ spec:
         - name: nginx-conf
           configMap:
             name: nginx-conf
+        - name: nginx-htpasswd
+          secret:
+            secretName: nginx-htpasswd

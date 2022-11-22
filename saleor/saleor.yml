@@ -70,6 +70,8 @@ spec:
         volumeMounts:
         - mountPath: /app/media
           name: saleor-media-volume
+        - mountPath: /app/static
+          name: saleor-static-volume
       containers:
       - name: saleor-api
         image: saleor-image
@@ -105,7 +107,12 @@ spec:
         volumeMounts:
           - mountPath: /app/media
             name: saleor-media-volume
+          - mountPath: /app/static
+            name: saleor-static-volume
       volumes:
         - name: saleor-media-volume
           persistentVolumeClaim:
             claimName: saleor-media
+        - name: saleor-static-volume
+          persistentVolumeClaim:
+            claimName: saleor-static

@@ -9,5 +9,6 @@ resources:
   - ./infra
   - ./db
   - ./jaeger
+  - ./nginx
   - ./mailhog
   - ./redis

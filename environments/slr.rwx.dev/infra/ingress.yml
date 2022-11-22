@@ -20,9 +20,10 @@ spec:
         - api.slr.rwx.dev
         - cdn.slr.rwx.dev
         - dsh.slr.rwx.dev
+        - jgr.slr.rwx.dev
+        - mhg.slr.rwx.dev
         # - co.slr.rwx.dev
         # - store.slr.rwx.dev
-        # - mailhog.slr.rwx.dev
         # - smtp.slr.rwx.dev
   rules:
     - host: "api.slr.rwx.dev"
@@ -58,7 +59,7 @@ spec:
               service:
                 name: nginx
                 port:
-                  name: nginx
+                  name: cdn
     - host: "dsh.slr.rwx.dev"
       http:
         paths:
@@ -76,6 +77,40 @@ spec:
                 name: saleor-dashboard
                 port:
                   name: saleor-dsh
+    - host: "jgr.slr.rwx.dev"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ssl-redirect
+                port:
+                  name: use-annotation
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx
+                port:
+                  name: jaeger
+    - host: "mhg.slr.rwx.dev"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ssl-redirect
+                port:
+                  name: use-annotation
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx
+                port:
+                  name: mailhog
     # - host: "co.slr.rwx.dev"
     #   http:
     #     paths:
