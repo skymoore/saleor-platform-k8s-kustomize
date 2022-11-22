@@ -16,6 +16,7 @@ images:
     newTag: "3.8.4"
   - name: saleor-storefront-image
     newName: skymoore/saleor-storefront
+    newTag: canary
 
 resources:
   - ../../base
@@ -24,10 +25,12 @@ resources:
   - ../../saleor-storefront
   - ./nginx
   - ./saleor-dashboard
+  - ./saleor
   - infra/ingress.yml
 
 patchesStrategicMerge:
   - infra/storage-class-gp3.yml
+  - saleor/saleor.yml
   - saleor-dashboard/saleor-dashboard.yml
 
 configMapGenerator:

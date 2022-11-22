@@ -37,14 +37,19 @@ spec:
           - containerPort:  80
             name:  nginx
         volumeMounts:
-          - mountPath: /var/www/files
+          - mountPath: /var/www/files/media
             name: saleor-media-volume
+          - mountPath: /var/www/files/static
+            name: saleor-static-volume
           - mountPath: /etc/nginx
             name: nginx-conf
       volumes:
         - name: saleor-media-volume
           persistentVolumeClaim:
             claimName: saleor-media
+        - name: saleor-static-volume
+          persistentVolumeClaim:
+            claimName: saleor-static
         - name: nginx-conf
           configMap:
             name: nginx-conf

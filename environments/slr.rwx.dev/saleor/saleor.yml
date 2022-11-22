@@ -1,0 +1,24 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: saleor
+spec:
+  template:
+    spec:
+      initContainers:
+      - name: saleor-init-migrations
+      - name: saleor-init-migrate
+      - name: saleor-init-collectstatic
+        volumeMounts:
+        - mountPath: /app/static
+          name: saleor-static-volume
+      containers:
+      - name: saleor-api
+        volumeMounts:
+          - mountPath: /app/static
+            name: saleor-static-volume
+      volumes:
+        - name: saleor-static-volume
+          persistentVolumeClaim:
+            claimName: saleor-static
