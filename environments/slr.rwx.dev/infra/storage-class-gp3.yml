@@ -8,7 +8,7 @@ parameters:
   type: gp3
   fsType: ext4
   encrypted: "true"
-reclaimPolicy: Delete
+reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
 ---
 apiVersion: storage.k8s.io/v1
@@ -20,5 +20,5 @@ parameters:
   type: gp3
   fsType: ext4
   encrypted: "true"
-reclaimPolicy: Delete
+reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
