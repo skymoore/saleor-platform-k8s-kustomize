@@ -38,8 +38,6 @@ spec:
             name:  cdn
           - containerPort: 8080
             name: jaeger
-          - containerPort: 9090
-            name: mailhog
         volumeMounts:
           - mountPath: /var/www/files/media
             name: saleor-media-volume
