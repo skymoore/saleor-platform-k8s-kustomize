@@ -1,8 +1,11 @@
 # Saleor Platform Kubernetes Kustomize Deployment Manifests
 
 ## **Docker Images**
+
 > See [slr.rwx.dev kustomization](environments/slr.rwx.dev/kustomization.yml) for example use of images.
+
 ### Build Images
+
 #### saleor example
 ```bash
 # repo setup
@@ -30,6 +33,7 @@ docker build . \
 --build-arg CHECKOUT_STOREFRONT_URL=https://co.slr.rwx.dev/checkout-spa/ \
 --build-arg CLOUD_DEPLOYMENT_URL=
 ```
+
 #### saleor-dashboard example
 ```bash
 # repo setup
@@ -49,14 +53,19 @@ docker build . \
 ```
 
 ## **Kubernetes Manifests**
+
 > See [Makefile](Makefile) for full commands.
+
 ### Create Manifest
+
 #### make:
 ```bash
 # build yaml manifest
 make build
 ```
+
 ### Deploy Manifest
+
 #### make:
 ```bash
 # preview
@@ -65,20 +74,28 @@ make dry-apply
 make apply
 ```
 ### Diff Manifest
+
 #### make:
 ```bash
 make diff
 ```
-### Create SuperUser
-#### make:
-```bash
-make superuser
-```
 ### Delete Resources
+
 #### make:
 ```bash
 # preview
 make dry-delete
 # delete
 make delete
+```
+
+## **Setup**
+
+> See [Makefile](Makefile) for full commands.
+
+### Create SuperUser
+
+#### make:
+```bash
+make superuser
 ```
