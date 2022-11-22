@@ -12,6 +12,9 @@ diff:
 superuser:
 	POD=$$(kubectl get pods -n saleor | grep -v -E 'mailhog|jaeger|db|redis|checkout|dashboard|storefront|worker' | tail -n 1 | cut -d ' ' -f 1); kubectl exec -i -t $${POD} -c saleor-api -n saleor -- python manage.py createsuperuser
 
+sendtestemail:
+	POD=$$(kubectl get pods -n saleor | grep -v -E 'mailhog|jaeger|db|redis|checkout|dashboard|storefront|worker' | tail -n 1 | cut -d ' ' -f 1); kubectl exec -i -t $${POD} -c saleor-api -n saleor -- python manage.py sendtestemail --admin
+
 delete:
 	kustomize build . | kubectl delete -f -
 

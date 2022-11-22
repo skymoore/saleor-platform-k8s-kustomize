@@ -1,0 +1,11 @@
+{
+    "server name": {
+        "name": "mailhog",
+        "host": "mailhog",
+        "port": "1025",
+        "email": "admin@mhg.slr.rwx.dev",
+        "username": "admin",
+        "password": "admin",
+        "mechanism": "PLAIN"
+    }
+}
