@@ -99,3 +99,15 @@ make delete
 ```bash
 make superuser
 ```
+
+### Update Site Domain
+
+```bash
+export TOKEN="someReallyLongTokenGoesHere"
+# set the name and domain in the mutation
+curl 'https://api.slr.rwx.dev/graphql/' \
+    -X POST \
+	-H 'Content-Type: application/json' \
+	-H "authorization-bearer: $TOKEN" \
+    --data-raw '{"operationName":"ShopDomainUpdate","variables":{"input":{"name":"saleor","domain":"api.slr.rwx.dev"}},"query":"mutation ShopDomainUpdate($input:SiteDomainInput!){shopDomainUpdate(input:$input){__typename}}"}'
+```

@@ -4,6 +4,7 @@ kind: Deployment
 metadata:
   name: saleor
 spec:
+  replicas: 2
   template:
     spec:
       restartPolicy: Always
