@@ -111,3 +111,10 @@ curl 'https://api.slr.rwx.dev/graphql/' \
 	-H "authorization-bearer: $TOKEN" \
     --data-raw '{"operationName":"ShopDomainUpdate","variables":{"input":{"name":"saleor","domain":"api.slr.rwx.dev"}},"query":"mutation ShopDomainUpdate($input:SiteDomainInput!){shopDomainUpdate(input:$input){__typename}}"}'
 ```
+
+### Create mailhog-auth file content
+
+```bash
+# htpasswd -nbB user pass
+htpasswd -nbB admin admin 
+```

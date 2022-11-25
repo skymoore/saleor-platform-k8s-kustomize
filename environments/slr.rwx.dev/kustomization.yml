@@ -58,3 +58,11 @@ secretGenerator:
     behavior: replace
     files:
       - config/.htpasswd
+  - name: mailhog-smtp
+    behavior: replace
+    files:
+      - config/smtp.json
+  - name: mailhog-auth
+    behavior: replace
+    files:
+      - config/mailhog-auth

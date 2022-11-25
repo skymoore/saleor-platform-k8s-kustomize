@@ -8,3 +8,11 @@ commonLabels:
 resources:
   - mailhog-deployment.yml
   - mailhog-svc.yml
+
+secretGenerator:
+  - name: mailhog-smtp
+    files:
+      - smtp.json
+  - name: mailhog-auth
+    files:
+      - mailhog-auth

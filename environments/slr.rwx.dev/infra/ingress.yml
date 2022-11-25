@@ -108,9 +108,9 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: nginx
+                name: mailhog
                 port:
-                  name: mailhog
+                  name: mailhog-ui
     # - host: "co.slr.rwx.dev"
     #   http:
     #     paths:

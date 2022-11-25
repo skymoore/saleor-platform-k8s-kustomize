@@ -9,6 +9,18 @@ spec:
       containers:
         - name: mailhog
           image: mailhog/mailhog
+          env:
+            - name: MH_HOSTNAME
+              value: mhg.slr.rwx.dev
+            - name: MH_OUTGOING_SMTP
+              value: /smtp-settings/smtp.json
+            - name: MH_AUTH_FILE
+              value: /mailhog-auth/mailhog-auth
+          volumeMounts:
+            - mountPath: /smtp-settings
+              name: mailhog-smtp
+            - mountPath: /mailhog-auth
+              name: mailhog-auth
           resources:
             requests:
               memory: "128Mi"
@@ -18,5 +30,11 @@ spec:
               name: mailhog-smtp
             - containerPort: 8025
               name: mailhog-ui
-
-
+      volumes:
+        - name: mailhog-smtp
+          secret:
+            secretName: mailhog-smtp
+        - name: mailhog-auth
+          secret:
+            secretName: mailhog-auth
+          
